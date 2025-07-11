@@ -51,16 +51,22 @@ android {
         }
     }
 
-    val keyAliasProperty: String = gradleLocalProperties(rootDir).getProperty("keyAlias")
-    val keyPasswordProperty: String = gradleLocalProperties(rootDir).getProperty("keyPassword")
-    val storePasswordProperty: String = gradleLocalProperties(rootDir).getProperty("storePassword")
+    val keyAliasProperty: String = properties.getProperty("keyAlias") ?: ""
+    val keyPasswordProperty: String = properties.getProperty("keyPassword") ?: ""
+    val storePasswordProperty: String = properties.getProperty("storePassword") ?: ""
 
     signingConfigs {
         getByName("debug") {
-            keyAlias = keyAliasProperty
-            keyPassword = keyPasswordProperty
+            if (keyAliasProperty.isNotEmpty()) {
+                keyAlias = keyAliasProperty
+            }
+            if (keyPasswordProperty.isNotEmpty()) {
+                keyPassword = keyPasswordProperty
+            }
             storeFile = file("../keystore/debug.keystore") // Adjusted path assuming modules are siblings
-            storePassword = storePasswordProperty
+            if (storePasswordProperty.isNotEmpty()) {
+                storePassword = storePasswordProperty
+            }
         }
     }
 }
