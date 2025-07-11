@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DirectionalLayout
+    xmlns:ohos="http://schemas.huawei.com/res/ohos"
+    ohos:height="match_parent"
+    ohos:width="match_parent"
+    ohos:orientation="vertical"
+    ohos:padding="10vp">
+
+    <Image
+        ohos:id="$+id:item_detail_cover"
+        ohos:height="100vp"
+        ohos:width="100vp"
+        ohos:layout_alignment="horizontal_center"
+        ohos:scale_mode="stretch"/> <!-- Or other scale modes -->
+
+    <Text
+        ohos:id="$+id:item_detail_title"
+        ohos:height="wrap_content"
+        ohos:width="match_parent"
+        ohos:text_size="18fp"
+        ohos:text_alignment="center"
+        ohos:top_margin="5vp"/>
+
+    <Text
+        ohos:id="$+id:item_detail_author"
+        ohos:height="wrap_content"
+        ohos:width="match_parent"
+        ohos:text_size="14fp"
+        ohos:text_alignment="center"
+        ohos:top_margin="2vp"/>
+
+    <Button
+        ohos:id="$+id:item_detail_sync_button"
+        ohos:height="wrap_content"
+        ohos:width="match_content"
+        ohos:text="Download to Watch"
+        ohos:layout_alignment="horizontal_center"
+        ohos:top_margin="10vp"/>
+
+    <Button
+        ohos:id="$+id:item_detail_play_button"
+        ohos:height="wrap_content"
+        ohos:width="match_content"
+        ohos:text="Play"
+        ohos:visibility="hide" <!-- Initially hidden -->
+        ohos:layout_alignment="horizontal_center"
+        ohos:top_margin="10vp"/>
+
+    <!-- Placeholder for podcast episode list -->
+    <ListContainer
+        ohos:id="$+id:item_detail_episodes_list"
+        ohos:height="0vp"
+        ohos:width="match_parent"
+        ohos:weight="1"
+        ohos:visibility="hide"
+        ohos:top_margin="10vp"/>
+
+</DirectionalLayout>
