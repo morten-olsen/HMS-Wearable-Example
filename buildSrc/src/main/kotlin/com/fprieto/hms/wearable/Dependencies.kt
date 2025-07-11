@@ -25,7 +25,7 @@ object Versions {
     const val hiHealth = "5.1.0.300"
     const val timber = "4.7.1"
     const val gson = "2.8.6"
-    const val exoPlayer = "2.10.5"
+    const val exoPlayer = "2.18.7" // Upgraded ExoPlayer version
     const val dagger = "2.37"
     const val retrofit = "2.9.0"
     const val okhttp = "4.9.3"
