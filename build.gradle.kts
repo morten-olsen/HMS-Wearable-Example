@@ -15,7 +15,8 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral() // Added Maven Central
+        jcenter() // Keeping jcenter for now, but typically listed after google/mavenCentral
         maven("https://developer.huawei.com/repo/")
     }
 }
