@@ -27,6 +27,8 @@ object Versions {
     const val gson = "2.8.6"
     const val exoPlayer = "2.10.5"
     const val dagger = "2.37"
+    const val retrofit = "2.9.0"
+    const val okhttp = "4.9.3"
 }
 
 object TestVersions {
@@ -114,6 +116,16 @@ object Dependencies {
 
     const val gson = "com.google.code.gson:gson:${Versions.gson}"
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
+
+    object Retrofit {
+        const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+        const val converterGson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
+    }
+
+    object OkHttp {
+        const val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
+        const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp}"
+    }
 }
 
 object TestDependencies {

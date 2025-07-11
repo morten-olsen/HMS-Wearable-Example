@@ -2,12 +2,11 @@ package com.fprieto.hms.wearable.presentation.ui
 
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
-import androidx.activity.result.contract.ActivityResultContracts.StartIntentSenderForResult
 import androidx.fragment.app.FragmentFactory
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -16,6 +15,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.fprieto.hms.wearable.R
 import com.fprieto.hms.wearable.databinding.ActivityWearEngineBinding
+import com.fprieto.hms.wearable.di.PREF_KEY_BASE_URL
+import com.fprieto.hms.wearable.model.audiobookshelf.User
+import com.fprieto.hms.wearable.net.AuthManager // Assuming a new class for token management
 import com.huawei.hihealthkit.data.HiHealthExtendScope
 import com.huawei.hms.common.ApiException
 import com.huawei.hms.hihealth.HuaweiHiHealth
@@ -69,6 +71,9 @@ class WearEngineActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var fragmentFactory: FragmentFactory
 
+    @Inject
+    lateinit var authManager: AuthManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -76,13 +81,44 @@ class WearEngineActivity : DaggerAppCompatActivity() {
         binding = ActivityWearEngineBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setBottomNavigation()
-        checkPermissions()
-        //requestExtendedAuth()
-       requestAuthorization( settingController.requestAuthorizationIntent(scopes, true))
+        setupNavigation()
+        // checkPermissions() // Keep HiWear permissions if still needed for other features - Commenting out for now
+        // requestAuthorization( settingController.requestAuthorizationIntent(scopes, true)) // Keep HealthKit if needed - Commenting out for now
     }
 
-    private fun requestExtendedAuth() {
+    private fun setupNavigation() {
+        val navHostFragment = supportFragmentManager.findFragmentById(
+            R.id.mainNavigationFragment
+        ) as NavHostFragment
+
+        navController = navHostFragment.navController
+
+        if (authManager.isLoggedIn()) {
+            // If logged in, set the graph's start destination to library list
+            // This requires the graph to be set first, then navigate
+            val navGraph = navController.navInflater.inflate(R.navigation.main_navigation)
+            navGraph.setStartDestination(R.id.libraryListFragment)
+            navController.graph = navGraph
+        } else {
+            // Default start destination is LoginFragment as set in XML
+            // Or explicitly set it if there are issues with XML not being primary
+             val navGraph = navController.navInflater.inflate(R.navigation.main_navigation)
+             navGraph.setStartDestination(R.id.loginFragment)
+             navController.graph = navGraph
+        }
+
+        binding.bottomNavigation.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.loginFragment -> binding.bottomNavigation.visibility = View.GONE
+                else -> binding.bottomNavigation.visibility = View.VISIBLE
+            }
+        }
+    }
+
+
+    /* private fun requestExtendedAuth() {
         val idAuthParamsHelper =
             HuaweiIdAuthParamsHelper(HuaweiIdAuthParams.DEFAULT_AUTH_REQUEST_PARAM)
         val idAuthParams = idAuthParamsHelper

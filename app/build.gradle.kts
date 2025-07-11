@@ -103,6 +103,11 @@ dependencies {
     implementation(Dependencies.Dagger.daggerAndroidSupport)
     kapt(Dependencies.Dagger.daggerAndroidProcessor)
 
+    implementation(Dependencies.Retrofit.retrofit)
+    implementation(Dependencies.Retrofit.converterGson)
+    implementation(Dependencies.OkHttp.okhttp)
+    implementation(Dependencies.OkHttp.loggingInterceptor)
+
     testImplementation(kotlin("test"))
     testImplementation(TestDependencies.livedataTesting)
     testImplementation(TestDependencies.kotlinxCoroutines)

@@ -1,9 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/dashboard">
-    <include app:graph="@navigation/dashboard" />
-    <include app:graph="@navigation/messaging" />
-    <include app:graph="@navigation/player" />
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.fprieto.hms.wearable.presentation.ui.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_libraryListFragment"
+            app:destination="@id/libraryListFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/libraryListFragment"
+        android:name="com.fprieto.hms.wearable.presentation.ui.LibraryListFragment"
+        android:label="Libraries"
+        tools:layout="@layout/fragment_library_list">
+        <action
+            android:id="@+id/action_libraryListFragment_to_itemListFragment"
+            app:destination="@id/itemListFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/itemListFragment"
+        android:name="com.fprieto.hms.wearable.presentation.ui.ItemListFragment"
+        android:label="Items"
+        tools:layout="@layout/fragment_item_list">
+        <argument
+            android:name="libraryId"
+            app:argType="string" />
+        <argument
+            android:name="libraryName"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_itemListFragment_to_playerFragment"
+            app:destination="@id/playerFragment" />
+    </fragment>
+
+    <!-- Existing player fragment, might need adjustments -->
+    <fragment
+        android:id="@+id/playerFragment"
+        android:name="com.fprieto.hms.wearable.presentation.ui.PlayerFragment"
+        android:label="Player"
+        tools:layout="@layout/fragment_player">
+        <argument
+            android:name="itemId"
+            app:argType="string" />
+        <argument
+            android:name="itemTitle"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+
+    <!-- Commenting out or removing old navigation includes for now -->
+    <!-- <include app:graph="@navigation/dashboard" /> -->
+    <!-- <include app:graph="@navigation/messaging" /> -->
+    <!-- <include app:graph="@navigation/player" /> -->
+
 </navigation>

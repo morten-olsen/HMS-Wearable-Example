@@ -19,7 +19,8 @@ import javax.inject.Singleton
         WearEngineMainActivityModule::class,
         ViewModelBindingModule::class,
         MapperModule::class,
-        DataModule::class
+        DataModule::class,
+        NetworkModule::class
     ]
 )
 @Singleton
