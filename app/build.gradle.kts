@@ -34,8 +34,9 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
     }
     // peerPkgName and peerFingerPrint might be relevant for Wear Engine communication. Keep for now.
-    val peerPkgName: String = gradleLocalProperties(rootDir).getProperty("peerPkgName")
-    val peerFingerPrint: String = gradleLocalProperties(rootDir).getProperty("peerFingerprint")
+    val properties = gradleLocalProperties(rootDir)
+    val peerPkgName: String = properties.getProperty("peerPkgName") ?: ""
+    val peerFingerPrint: String = properties.getProperty("peerFingerprint") ?: ""
 
     buildTypes {
         getByName("release") {

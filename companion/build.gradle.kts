@@ -30,8 +30,9 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
         sourceCompatibility = JavaVersion.VERSION_1_8
     }
-    val peerPkgName: String = gradleLocalProperties(rootDir).getProperty("peerPkgName")
-    val peerFingerPrint: String = gradleLocalProperties(rootDir).getProperty("peerFingerprint")
+    val properties = gradleLocalProperties(rootDir)
+    val peerPkgName: String = properties.getProperty("peerPkgName") ?: ""
+    val peerFingerPrint: String = properties.getProperty("peerFingerprint") ?: ""
 
     buildTypes {
         getByName("release") {
