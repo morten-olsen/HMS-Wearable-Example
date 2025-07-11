@@ -39,7 +39,7 @@ jobs:
       run: ./gradlew :wear:assembleRelease # This task might be different for HarmonyOS
 
     - name: Upload HAP
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: wear-hap
         path: wear/build/outputs/hap/release/wear-release-unsigned.hap # Path needs verification
