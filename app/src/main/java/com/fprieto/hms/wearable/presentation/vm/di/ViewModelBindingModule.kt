@@ -27,4 +27,19 @@ abstract class ViewModelBindingModule {
     @IntoMap
     @ViewModelKey(MessagingViewModel::class)
     abstract fun messagingViewModel(viewModel: MessagingViewModelImpl): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LoginViewModel::class)
+    abstract fun loginViewModel(viewModel: LoginViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LibraryListViewModel::class)
+    abstract fun libraryListViewModel(viewModel: LibraryListViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ItemListViewModel::class)
+    abstract fun itemListViewModel(viewModel: ItemListViewModel): ViewModel
 }

@@ -1,0 +1,45 @@
+name: HarmonyOS Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up JDK 11 # Assuming JDK 11 is also suitable for HarmonyOS builds
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: Set up HarmonyOS Build Environment
+      run: |
+        echo "Setting up HarmonyOS build environment..."
+        # This step is a placeholder.
+        # Actual HarmonyOS build setup would require installing the HarmonyOS SDK,
+        # configuring environment variables, and potentially using specific tools.
+        # This might involve downloading and setting up the SDK from Huawei,
+                # or using a custom Docker image with the environment pre-configured.
+        echo "HarmonyOS_SDK_Path=/path/to/harmonyos/sdk" >> $GITHUB_ENV
+        # Add more setup steps as needed.
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Build with Gradle (HarmonyOS)
+      run: ./gradlew :wear:assembleRelease # This task might be different for HarmonyOS
+
+    - name: Upload HAP
+      uses: actions/upload-artifact@v4
+      with:
+        name: wear-hap
+        path: wear/build/outputs/hap/release/wear-release-unsigned.hap # Path needs verification

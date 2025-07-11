@@ -2,10 +2,9 @@ package com.fprieto.hms.wearable.presentation.ui.di
 
 import androidx.fragment.app.Fragment
 import com.fprieto.hms.wearable.di.ActivityScope
-import com.fprieto.hms.wearable.presentation.ui.DashboardFragment
-import com.fprieto.hms.wearable.presentation.ui.MessagingFragment
-import com.fprieto.hms.wearable.presentation.ui.PlayerFragment
-import com.fprieto.hms.wearable.presentation.ui.WearEngineActivity
+import androidx.fragment.app.Fragment
+import com.fprieto.hms.wearable.di.ActivityScope
+import com.fprieto.hms.wearable.presentation.ui.*
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -31,4 +30,19 @@ internal abstract class WearEngineMainActivityModule {
     @IntoMap
     @FragmentKey(PlayerFragment::class)
     abstract fun playerFragment(playerFragment: PlayerFragment): Fragment
+
+    @Binds
+    @IntoMap
+    @FragmentKey(LoginFragment::class)
+    abstract fun loginFragment(loginFragment: LoginFragment): Fragment
+
+    @Binds
+    @IntoMap
+    @FragmentKey(LibraryListFragment::class)
+    abstract fun libraryListFragment(libraryListFragment: LibraryListFragment): Fragment
+
+    @Binds
+    @IntoMap
+    @FragmentKey(ItemListFragment::class)
+    abstract fun itemListFragment(itemListFragment: ItemListFragment): Fragment
 }

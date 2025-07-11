@@ -2,17 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/dashboard"
+        android:id="@+id/libraryListFragment"
         android:icon="@drawable/ic_dashboard"
-        android:title="@string/tab_title_dashboard" />
+        android:title="@string/tab_title_libraries" /> <!-- Need to add this string -->
 
     <item
-        android:id="@+id/messaging"
-        android:icon="@drawable/ic_messaging"
-        android:title="@string/tab_title_messaging" />
-
-    <item
-        android:id="@+id/player"
+        android:id="@+id/playerFragment"
         android:icon="@drawable/ic_player"
         android:title="@string/tab_title_player" />
 </menu>

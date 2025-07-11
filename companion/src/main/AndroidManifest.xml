@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.fprieto.hms.wearable">
+    package="com.fprieto.hms.wearable.companion"> <!-- Changed package name -->
     <queries>
         <package android:name="com.huawei.health" />
     </queries>
 
     <application
-        android:name=".App"
+        android:name="com.fprieto.hms.wearable.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        <!-- Potentially new string for companion app name -->
+        android:label="@string/app_name_companion"
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -20,14 +21,13 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <meta-data
             android:name="com.huawei.hms.client.appid"
-            android:value="104116943" />
+            android:value="104116943" /> <!-- This might need to be different for the companion if it also directly uses HMS core services, or removed if only the watch app does -->
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -36,15 +36,18 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/filepaths" />
+                android:resource="@xml/filepaths" /> <!-- Assuming filepaths.xml will be moved too -->
         </provider>
+
+        <service
+            android:name="com.fprieto.hms.wearable.service.DownloadService"
+            android:exported="false" />
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-
+    <!-- Removed CAMERA permission as it's unlikely needed for companion app -->
     <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

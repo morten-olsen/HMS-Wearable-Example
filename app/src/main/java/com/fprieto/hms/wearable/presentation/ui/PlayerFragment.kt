@@ -14,18 +14,18 @@ import com.fprieto.hms.wearable.audio.AudioPlayer
 import com.fprieto.hms.wearable.credentials.CredentialsProvider
 import com.fprieto.hms.wearable.databinding.FragmentPlayerBinding
 import com.fprieto.hms.wearable.databinding.ViewLogsBinding
-import com.fprieto.hms.wearable.extensions.await
+// import com.fprieto.hms.wearable.extensions.await
 import com.fprieto.hms.wearable.player.VideoPlayerState
 import com.fprieto.hms.wearable.presentation.vm.PlayerViewModel
 import com.fprieto.hms.wearable.presentation.vm.observeEvent
-import com.huawei.wearengine.HiWear
-import com.huawei.wearengine.device.Device
-import com.huawei.wearengine.device.DeviceClient
-import com.huawei.wearengine.p2p.Message
-import com.huawei.wearengine.p2p.P2pClient
-import com.huawei.wearengine.p2p.Receiver
-import com.huawei.wearengine.p2p.SendCallback
-import kotlinx.coroutines.launch
+// import com.huawei.wearengine.HiWear
+// import com.huawei.wearengine.device.Device
+// import com.huawei.wearengine.device.DeviceClient
+// import com.huawei.wearengine.p2p.Message
+// import com.huawei.wearengine.p2p.P2pClient
+// import com.huawei.wearengine.p2p.Receiver
+// import com.huawei.wearengine.p2p.SendCallback
+// import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -42,12 +42,12 @@ class PlayerFragment @Inject constructor(
     private lateinit var binding: FragmentPlayerBinding
     private lateinit var viewLogsBinding: ViewLogsBinding
 
-    private val credentialsProvider: CredentialsProvider = CredentialsProvider()
+    // private val credentialsProvider: CredentialsProvider = CredentialsProvider()
     private var playerState: VideoPlayerState = VideoPlayerState()
 
-    private var sendCallback: SendCallback? = null
+    // private var sendCallback: SendCallback? = null
 
-    private var selectedDevice: Device? = null
+    /* private var selectedDevice: Device? = null
         set(value) {
             field = value
             setDeviceIntoRadioButton(value)
@@ -68,7 +68,7 @@ class PlayerFragment @Inject constructor(
 
     private val deviceClient: DeviceClient by lazy {
         HiWear.getDeviceClient(context)
-    }
+    } */
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -77,13 +77,13 @@ class PlayerFragment @Inject constructor(
 
     override fun onResume() {
         super.onResume()
-        viewModel.getSelectedDevice()
+        // viewModel.getSelectedDevice()
     }
 
     override fun onPause() {
         super.onPause()
-        sendCallback = null
-        selectedDevice = null
+        // sendCallback = null
+        // selectedDevice = null
     }
 
     override fun onCreateView(
@@ -113,6 +113,8 @@ class PlayerFragment @Inject constructor(
         binding.clearLogs.setOnClickListener {
             viewLogsBinding.logOutputTextView.text = ""
         }
+        // Hide P2P related UI for now
+        binding.connectedDevice.isVisible = false
     }
 
     private fun getLatestPlayerState(bundle: Bundle?) {
@@ -123,17 +125,18 @@ class PlayerFragment @Inject constructor(
     }
 
     private fun renderVideo() {
+        // TODO: Replace VIDEO_URL with actual audio source from ViewModel
         playerState = playerState.checkAndSet(VIDEO_URL)
         Timber.d("Video URL loaded")
         binding.videoPlayer.prepareToPlay(this, playerState)
     }
 
     private fun setViewModelObservers() {
-        viewModel.selectedDevice.observeEvent(this) { lastSelectedDevice ->
+        /* viewModel.selectedDevice.observeEvent(this) { lastSelectedDevice ->
             selectDevice(lastSelectedDevice)
-        }
+        } */
 
-        viewModel.playVideo.observeEvent(this) {
+        viewModel.playAudio.observeEvent(this) {
             binding.videoPlayer.play()
             Timber.d("Play Command Selected")
         }
@@ -159,7 +162,7 @@ class PlayerFragment @Inject constructor(
         }
     }
 
-    private fun selectDevice(lastSelectedDevice: Device) {
+    /* private fun selectDevice(lastSelectedDevice: Device) {
         lifecycleScope.launch {
             deviceClient.bondedDevices.await().let { devices ->
                 devices.firstOrNull { device -> device.uuid == lastSelectedDevice.uuid }
@@ -213,7 +216,7 @@ class PlayerFragment @Inject constructor(
         p2pClient.registerReceiver(selectedDevice, receiver)
             .addOnSuccessListener { Timber.d("Register receiver listener succeed!") }
             .addOnFailureListener { Timber.e("Register receiver listener failed!", this) }
-    }
+    } */
 }
 
 

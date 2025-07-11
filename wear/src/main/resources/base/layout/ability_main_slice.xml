@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This is a conceptual HarmonyOS XML layout. Syntax might differ. -->
+<DirectionalLayout
+    xmlns:ohos="http://schemas.huawei.com/res/ohos"
+    ohos:height="match_parent"
+    ohos:width="match_parent"
+    ohos:orientation="vertical">
+
+    <Text
+        ohos:id="$+id:main_title_text"
+        ohos:height="wrap_content"
+        ohos:width="match_parent"
+        ohos:text_size="20fp"
+        ohos:text_alignment="center"
+        ohos:padding="10vp"
+        ohos:text="My Audiobooks"/>
+
+    <ListContainer
+        ohos:id="$+id:library_list_container"
+        ohos:height="0vp"
+        ohos:width="match_parent"
+        ohos:weight="1"
+        ohos:top_margin="5vp"/>
+
+    <!-- Potentially a status bar or sync button at the bottom -->
+    <Text
+        ohos:id="$+id:status_text"
+        ohos:height="wrap_content"
+        ohos:width="match_parent"
+        ohos:text_size="12fp"
+        ohos:text_alignment="center"
+        ohos:padding="5vp"
+        ohos:text="Status: Idle"/>
+
+</DirectionalLayout>

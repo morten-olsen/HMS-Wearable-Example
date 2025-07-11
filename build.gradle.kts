@@ -15,6 +15,7 @@ buildscript {
 allprojects {
     repositories {
         google()
+        mavenCentral()
         jcenter()
         maven("https://developer.huawei.com/repo/")
     }
